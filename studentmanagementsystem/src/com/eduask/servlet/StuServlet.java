@@ -1,6 +1,7 @@
 package com.eduask.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,8 +23,6 @@ public class StuServlet extends HttpServlet {
 		System.out.println(method);
 		if ("findAll".equals(method)) {
 			findAll(request, response);
-		} else if ("findBy".equals(method)) {
-			findBy(request, response);
 		} else if ("add".equals(method)) {
 			add(request, response);
 		} else if ("findById".equals(method)) {
@@ -44,7 +43,9 @@ public class StuServlet extends HttpServlet {
 
 	public void findAll(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("STUINFO", sbi.findAll());
+		int page = Integer.parseInt(request.getParameter("page"));
+		request.setAttribute("STUINFO", sbi.findBy(page));
+		request.setAttribute("PAGE", sbi.getPage());
 		request.getRequestDispatcher("stuFindAll.jsp").forward(request,
 				response);
 	}
@@ -55,14 +56,6 @@ public class StuServlet extends HttpServlet {
 		request.setAttribute("STUINFO", sbi.findById(stuId));
 		request.getRequestDispatcher("stuUpdate.jsp")
 				.forward(request, response);
-	}
-
-	public void findBy(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String str = request.getParameter("str");
-		request.setAttribute("STUINFO", sbi.findBy("%" + str + "%"));
-		request.getRequestDispatcher("stuFindAll.jsp").forward(request,
-				response);
 	}
 
 	public void add(HttpServletRequest request, HttpServletResponse response)
@@ -111,16 +104,24 @@ public class StuServlet extends HttpServlet {
 	
 	public void search(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int page = Integer.parseInt(request.getParameter("page"));
 		String str = request.getParameter("str");
-		StuInfo si = new StuInfo(str);
-		List<StuInfo> list = sbi.search(si);
-		for (StuInfo s : list) {
-			String name = s.getStuName();
-			name = name.replace(str, "<font color='red'>"+str+"</font>");
-			String ori = s.getStuOri();
-			ori = ori.replace(str, "<font color='red'>"+str+"</font>");
-			s.setStuName(name);
-			s.setStuOri(ori);
+		
+		List<StuInfo> list = new ArrayList<StuInfo>();
+		if(str==""){
+			list = sbi.findBy(page);
+			request.setAttribute("PAGE", sbi.getPage());
+		}else if(str!=null){
+			StuInfo si = new StuInfo(str);
+			list = sbi.search(si);
+			for (StuInfo s : list) {
+				String name = s.getStuName();
+				name = name.replace(str, "<font color='red'>"+str+"</font>");
+				String ori = s.getStuOri();
+				ori = ori.replace(str, "<font color='red'>"+str+"</font>");
+				s.setStuName(name);
+				s.setStuOri(ori);
+			}
 		}
 		request.setAttribute("STUINFO",list);
 		request.getRequestDispatcher("stuFindAll.jsp").forward(request,

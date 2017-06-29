@@ -105,7 +105,6 @@ public class TeaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		int page = Integer.parseInt(request.getParameter("page"));
 		String str = request.getParameter("str");
-		
 		List<TeaInfo> list = new ArrayList<TeaInfo>();
 		if(str==""){
 			list = tbi.findBy(page);
@@ -122,7 +121,6 @@ public class TeaServlet extends HttpServlet {
 				t.setTeaOri(ori);
 			}
 		}
-		
 		request.setAttribute("TEAINFO",list);
 		request.getRequestDispatcher("teaFindAll.jsp").forward(request,
 				response);

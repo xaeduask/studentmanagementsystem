@@ -36,9 +36,9 @@
 		parameterType="int">
 		select *from stuInfo where stuId = #{stuId }
 	</select>
-	<select id="findBy" resultType="com.eduask.bean.StuInfo"
-		parameterType="java.lang.String">
-		select *from stuInfo where stuName like #{str}
+	<select id="findBy" resultMap="stu"	parameterType="int">
+		SELECT * FROM GraInfo g ,ClassInfo c ,StuInfo s WHERE g.`graId`=c.`graId`
+		AND c.`classId`=s.`classId` limit #{page},12
 	</select>
 	<insert id="add" parameterType="com.eduask.bean.StuInfo">
 		insert into stuInfo
@@ -63,5 +63,8 @@
 		</if>
 		and g.`graId`=c.`graId`	AND c.`classId`=s.`classId`
 		</where> 
+	</select>
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*)FROM stuInfo;
 	</select>
 </mapper>

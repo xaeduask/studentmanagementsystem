@@ -26,8 +26,8 @@
 		</association>
 	</resultMap>
 	<select id="findAll" resultMap="tea">
-		select *from teaInfo t,subInfo s,roleInfo r where t.subId=s.subId and
-		t.roleId=r.roleId
+		select *from teaInfo t,subInfo s,roleInfo r where 
+		t.subId=s.subId and t.roleId=r.roleId
 	</select>
 	<select id="findById" resultType="com.eduask.bean.TeaInfo"
 		parameterType="int">

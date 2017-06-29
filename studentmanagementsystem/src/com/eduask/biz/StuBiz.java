@@ -9,7 +9,7 @@ public interface StuBiz {
 
 	public StuInfo findById(int sno);
 
-	public List<StuInfo> findBy(String str);
+	public List<StuInfo> findBy(int page);
 
 	public void add(StuInfo si);
 
@@ -18,5 +18,7 @@ public interface StuBiz {
 	public void delete(int sno);
 	
 	public List<StuInfo> search(StuInfo si);
+	
+	public int getCount();
 
 }

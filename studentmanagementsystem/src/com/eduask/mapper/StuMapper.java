@@ -6,10 +6,10 @@ import com.eduask.bean.StuInfo;
 
 public interface StuMapper {
 	public List<StuInfo> findAll();
+	
+	public List<StuInfo> findBy(int page);
 
 	public StuInfo findById(int stuId);
-
-	public List<StuInfo> findBy(String str);
 
 	public void add(StuInfo si);
 
@@ -18,5 +18,7 @@ public interface StuMapper {
 	public void delete(int stuId);
 	
 	public List<StuInfo> search(StuInfo si);
+	
+	public int getCount();
 
 }
