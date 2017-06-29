@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eduask.mapper.ClassMapper">
+      <resultMap type="com.eduask.bean.ClassInfo" id="search">
+           <id column="classid" property="classId"/>
+           <result column="classname" property="className"/>
+           <!-- 与年级相连 -->
+           <association property="graInfo" javaType="com.eduask.bean.GraInfo">
+           <id column="graid" property="graId"/>
+           <result column="graname" property="graName"/>
+           </association>
+           <!-- 与教师相连 -->
+           <association property="teainfo" javaType="com.eduask.bean.TeaInfo">
+           <id column="teaid" property="teaId"/>
+           <result column="teaNum" property="teaNum"/>
+           <result column="teapass" property="teaPass"/>
+           <result column="teaname" property="teaName"/>
+           <result column="teasex" property="teaSex"/>
+           <result column="teaori" property="teaOri"/>
+           <result column="teanat" property="teaNat"/>
+           <result column="teaage" property="teaAge"/>
+           <result column="teaphone" property="teaPhone"/>
+           <result column="teaedu" property="teaEdu"/>
+           </association>
+           <!-- 与学生相连 -->       
+           <collection property="stuSet" ofType="com.eduask.bean.StuInfo" column="classid">
+           <id column="stuid" property="stuId"/>
+           <result column="stunum" property="stuNum"/>
+           <result column="stupass" property="stuPass"/>
+           <result column="stuname" property="stuName"/>
+           <result column="stusex" property="stuSex"/>
+           <result column="stuori" property="stuOri"/>
+           <result column="stunat" property="stuNat"/>
+           <result column="stuage" property="stuAge"/>
+           <result column="stuphone" property="stuPhone"/>
+           </collection>
+      </resultMap>
+      
+      <select id="findAll" resultMap="search">
+      SELECT * FROM classinfo c,grainfo g,teainfo t,stuinfo s       
+      <where>
+       c.`graId`=g.`graId` 
+      AND
+       c.`tId`=t.`teaId`
+      AND 
+      s.`classId`=c.`classId`
+      <if test="graName!=null">
+      AND graName like concat(concat('%',#{graName}),'%')
+      </if>
+      <if test="className!=null">
+      AND className like concat(concat('%',#{className}),'%')
+      </if>
+      </where>              
+      </select>
+      
+      <update id="updateStustate" parameterType="com.eduask.bean.StuInfo">
+      update stuinfo set stustate=0 where stuId=#{stuId}
+      </update>
+      <update id="update" parameterType="int">
+		update stuInfo set classId=#{classId} where stuId=#{stuId}
+	</update>
+</mapper>
+
+

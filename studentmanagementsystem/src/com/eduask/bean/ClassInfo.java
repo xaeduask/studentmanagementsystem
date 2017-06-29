@@ -119,6 +119,12 @@ public class ClassInfo {
 	public void setClassSet(Set<ClassInfo> classSet) {
 		this.classSet = classSet;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ClassInfo [classId=" + classId + ", className=" + className + "]";
+	}
 	
 
 	

@@ -167,4 +167,6 @@ public class StuInfo {
 		this.scoSet = scoSet;
 	}
 
+
+	
 }

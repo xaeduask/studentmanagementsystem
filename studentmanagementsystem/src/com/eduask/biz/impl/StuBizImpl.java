@@ -22,9 +22,8 @@ public class StuBizImpl implements StuBiz {
 	}
 
 	@Override
-	public List<StuInfo> findBy(int page) {
-		int pageOne = ((page-1)*12);
-		return sm.findBy(pageOne);
+	public List<StuInfo> findBy(String str) {
+		return sm.findBy(str);
 	}
 
 	@Override
@@ -46,17 +45,8 @@ public class StuBizImpl implements StuBiz {
 	}
 	@Override
 	public List<StuInfo> search(StuInfo si) {
+		// TODO Auto-generated method stub
 		return sm.search(si);
 	}
-	@Override
-	public int getCount() {
-		return sm.getCount();
-	}
 	
-	public int getPage(){
-		int page = 0;
-		int count = getCount();
-		page = (count%12==0)?(count/12):(count/12+1);
-		return page;
-	}
 }
