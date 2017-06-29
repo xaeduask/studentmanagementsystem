@@ -6,6 +6,8 @@ import com.eduask.bean.TeaInfo;
 
 public interface TeaBiz {
 	public List<TeaInfo> findAll();
+	
+	public List<TeaInfo> findBy(int page);
 
 	public TeaInfo findById(int teaId);
 
@@ -16,4 +18,6 @@ public interface TeaBiz {
 	public void delete(int teaId);
 
 	public List<TeaInfo> search(TeaInfo ti);
+
+	public int getCount();
 }

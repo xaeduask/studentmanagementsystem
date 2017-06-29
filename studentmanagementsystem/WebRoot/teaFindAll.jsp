@@ -35,6 +35,7 @@
 <c:if test="${empty TEAINFO }">
 	<c:redirect url="TeaServlet">
 		<c:param name="method" value="findAll"></c:param>
+		<c:param name="page" value="1"></c:param>
 	</c:redirect>
 </c:if>
 <body>
@@ -45,6 +46,7 @@
 					class="TEXT button-glow button-border button-rounded button-primary"
 					style="width: 320px;" /> 
 					<input type="hidden" name="method" value="search" /> 
+					<input type="hidden" name="page" value="1" /> 
 					<input type="submit" value="ËÑË÷Ò»ÏÂ"
 					class="button button-glow button-border button-rounded button-primary" />
 			</form>
@@ -81,6 +83,20 @@
 					href="TeaServlet?method=findById&teaId=${ti.teaId }">ÐÞ¸Ä</a></td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="12" align="right">
+				<c:forEach var="i" begin="1" end="${PAGE }" step="1">
+					<c:choose>
+						<c:when test="${param.page==i }">
+							${i }&nbsp;
+						</c:when>
+						<c:otherwise>
+							<a href="TeaServlet?method=findAll&page=${i }">${i }</a>&nbsp;
+						</c:otherwise>
+					</c:choose>	
+				</c:forEach>
+			</td>
+		</tr>
 	</table>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.eduask.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -41,7 +42,9 @@ public class TeaServlet extends HttpServlet {
 	}
 	public void findAll(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("TEAINFO", tbi.findAll());
+		int page = Integer.parseInt(request.getParameter("page"));
+		request.setAttribute("TEAINFO", tbi.findBy(page));
+		request.setAttribute("PAGE", tbi.getPage());
 		request.getRequestDispatcher("teaFindAll.jsp").forward(request, response);
 	}
 	public void findById(HttpServletRequest request, HttpServletResponse response)
@@ -74,6 +77,10 @@ public class TeaServlet extends HttpServlet {
 		ti.setTeaPass(request.getParameter("teaPass"));
 		ti.setTeaName(request.getParameter("teaName"));
 		ti.setTeaSex(request.getParameter("teaSex"));
+		
+		
+		System.out.println(request.getParameter("teaSex"));
+		
 		ti.setTeaOri(request.getParameter("teaOri"));
 		ti.setTeaNat(request.getParameter("teaNat"));
 		ti.setTeaAge(Integer.parseInt(request.getParameter("teaAge")));
@@ -81,7 +88,11 @@ public class TeaServlet extends HttpServlet {
 		ti.setTeaEdu(request.getParameter("teaEdu"));
 		ti.setSubId(Integer.parseInt(request.getParameter("subId")));
 		ti.setRoleId(Integer.parseInt(request.getParameter("roleId")));
+		
 		tbi.update(ti);
+		System.out.println(ti.getTeaSex());
+		
+		
 		request.getRequestDispatcher("teaFindAll.jsp").forward(request,response);
 	}
 	public void delete(HttpServletRequest request, HttpServletResponse response)
@@ -92,17 +103,26 @@ public class TeaServlet extends HttpServlet {
 	}
 	public void search(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int page = Integer.parseInt(request.getParameter("page"));
 		String str = request.getParameter("str");
-		TeaInfo si = new TeaInfo(str);
-		List<TeaInfo> list = tbi.search(si);
-		for (TeaInfo t : list) {
-			String name = t.getTeaName();
-			name = name.replace(str, "<font color='red'>"+str+"</font>");
-			String ori = t.getTeaOri();
-			ori = ori.replace(str, "<font color='red'>"+str+"</font>");
-			t.setTeaName(name);
-			t.setTeaOri(ori);
+		
+		List<TeaInfo> list = new ArrayList<TeaInfo>();
+		if(str==""){
+			list = tbi.findBy(page);
+			request.setAttribute("PAGE", tbi.getPage());
+		}else if(str!=null){
+			TeaInfo si = new TeaInfo(str);
+			list = tbi.search(si);
+			for (TeaInfo t : list) {
+				String name = t.getTeaName();
+				name = name.replace(str, "<font color='red'>"+str+"</font>");
+				String ori = t.getTeaOri();
+				ori = ori.replace(str, "<font color='red'>"+str+"</font>");
+				t.setTeaName(name);
+				t.setTeaOri(ori);
+			}
 		}
+		
 		request.setAttribute("TEAINFO",list);
 		request.getRequestDispatcher("teaFindAll.jsp").forward(request,
 				response);

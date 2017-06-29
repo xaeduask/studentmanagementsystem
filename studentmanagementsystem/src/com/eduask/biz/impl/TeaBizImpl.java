@@ -43,8 +43,23 @@ public class TeaBizImpl implements TeaBiz {
 
 	@Override
 	public List<TeaInfo> search(TeaInfo ti) {
-		// TODO Auto-generated method stub
 		return tm.search(ti);
 	}
+	@Override
+	public int getCount(){
+		return tm.getCount();
+	}
+	
+	public int getPage(){
+		int page = 0;
+		int count = getCount();
+		page = (count%12==0)?(count/12):(count/12+1);
+		return page;
+	}
 
+	@Override
+	public List<TeaInfo> findBy(int page) {
+		int pageOne = ((page-1)*12);
+		return tm.findBy(pageOne);
+	}
 }
