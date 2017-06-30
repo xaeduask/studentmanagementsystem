@@ -6,8 +6,8 @@
   </head>
   
   <body>
-    <form action="class" method="post">
-     <input type="text" value="${STUINFO.classId}" name="classId"/>
+    <form action="class?method=update&stuId=${STUKEY.stuId}" method="post">
+     <input type="number" value="${STUKEY.classId}" name="classId" />
      <input type="submit" value="¸ü¸Ä"/>
     </form>
   </body>

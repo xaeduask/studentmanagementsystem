@@ -9,6 +9,8 @@ import com.eduask.bean.StuInfo;
 public interface ClassBiz {
 	public List<ClassInfo> findAll(Map<String,Object> map);	
 	public void update(StuInfo si);
-	public void updateStustate(int stuId);
+	public void delete(int stuId);
+	public StuInfo findById(int stuId);
+	public List<ClassInfo> findall();
 
 }

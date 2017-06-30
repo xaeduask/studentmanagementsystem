@@ -44,6 +44,12 @@ public class StuInfo {
 		stuOri = str;
 	}
 	
+	public StuInfo(Integer stuId, Integer classId) {
+		super();
+		this.stuId = stuId;
+		this.classId = classId;
+	}
+
 	public StuInfo(Integer stuId, Integer stuNum, String stuPass,
 			String stuName, String stuSex, String stuOri, String stuNat,
 			Integer stuAge, String stuPhone, ClassInfo classInfo,

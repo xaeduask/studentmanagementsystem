@@ -31,17 +31,15 @@ public class ClassTest {
 				System.out.println(si.getStuName());
 			}
 		}*/
-		Integer stuId=2;
-		Integer classId=2;
-		StuInfo si=new StuInfo();
+		/*StuInfo si=new StuInfo(2,2);
 		si.setClassId(classId);
 		si.setStuId(stuId);
-		cb.update(si);
+		cb.update(si);*/
 		
 		
 		/*int  stuId=2;
 		cb.updateStustate(stuId);*/
-		
+		cb.delete(5);
 		
 	}
 

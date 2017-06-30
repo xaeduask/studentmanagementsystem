@@ -11,5 +11,7 @@ public interface ClassMapper {
 	public List<ClassInfo> findAll(Map<String,Object> map);	
 	//更改学生所在的班级
 	public void update(StuInfo si);
-	public void updateStustate(int stuId);
+	public void delete(int stuId);
+	public StuInfo findById(int stuId);
+	public List<ClassInfo> findall();
 }

@@ -10,7 +10,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=gbk" />
+					value="jdbc:mysql://10.0.0.66:3306/test?useUnicode=true&amp;characterEncoding=gbk" />
 				<property name="username" value="root" />
 				<property name="password" value="eduask" />
 			</dataSource>
